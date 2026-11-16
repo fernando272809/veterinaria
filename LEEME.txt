@@ -1,0 +1,38 @@
+INSTALACIÓN DEL SISTEMA VETERINARIA
+
+1. Copia esta carpeta dentro de C:\xampp\htdocs\ y, si quieres, renómbrala a veterinaria.
+2. Enciende Apache y MySQL en XAMPP.
+3. Abre http://localhost/phpmyadmin y selecciona la base veterinariadb.
+4. Importa actualizar_bd.sql UNA SOLA VEZ. Agrega la columna rol y crea clientes si falta.
+5. Revisa conexion.php. En XAMPP normalmente root no tiene contraseña.
+6. Abre http://localhost/veterinaria_sistema/crear_admin.php (o /veterinaria/ si cambiaste el nombre).
+7. Crea el primer administrador. La contraseña debe tener al menos 8 caracteres.
+8. Inicia sesión en login.php.
+9. Después de crear el administrador, elimina crear_admin.php por seguridad.
+
+Los administradores pueden agregar, editar y eliminar usuarios, administradores y clientes.
+Las contraseñas se guardan cifradas mediante password_hash.
+Si ya agregaste manualmente la columna rol, quita el ALTER TABLE del SQL antes de importarlo.
+
+
+ACTUALIZACIÓN: TIENDA DE PRODUCTOS
+
+Nuevos archivos:
+- productos.php: catálogo y administración de productos.
+- carrito.php: carrito, actualización de cantidades y confirmación de compra.
+- mis_compras.php: historial de compras de cada cuenta.
+- actualizar_productos.sql: agrega categorías Medicamentos y Accesorios, y crea ventas y detalle_venta.
+
+INSTALACIÓN DE LA TIENDA:
+1. Copia/reemplaza la carpeta del proyecto en C:\xampp\htdocs\veterinaria_sistema.
+2. Abre phpMyAdmin, selecciona veterinariadb y entra a Importar.
+3. Importa actualizar_productos.sql UNA SOLA VEZ.
+4. Inicia sesión en el sistema y entra a Productos.
+5. El administrador puede agregar, editar y eliminar productos.
+6. Los usuarios pueden agregarlos al carrito, confirmar compras y consultar su historial.
+
+NOTAS:
+- La compra registra el pedido en la base de datos y descuenta las existencias.
+- El sistema actual no procesa pagos reales ni envía pedidos a domicilio; la compra es un registro interno de la tienda.
+- Los medicamentos se muestran como productos de catálogo; su venta/uso debe cumplir las indicaciones y regulación veterinaria aplicable.
+- En el campo Imagen puedes escribir una ruta relativa, por ejemplo imagenes/croquetas.jpg. Coloca el archivo de imagen en esa carpeta dentro del proyecto.

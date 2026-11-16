@@ -1,0 +1,64 @@
+SISTEMA VETERINARIO VETCARE - XAMPP
+
+INSTALACIÓN
+1. Descomprime sistema_veterinario_completo.zip.
+2. Copia la carpeta veterinaria_sistema dentro de C:\xampp\htdocs\.
+3. Abre XAMPP e inicia Apache y MySQL.
+4. Entra a http://localhost/phpmyadmin/.
+5. Importa veterinariadb.sql para crear la base original (si ya tienes la base, conserva tus datos y omite este paso).
+6. Selecciona la base veterinariadb e importa, en este orden:
+   a) actualizar_productos.sql
+   b) actualizar_sistema.sql
+7. Abre http://localhost/veterinaria_sistema/crear_admin.php y crea el primer administrador.
+8. Inicia sesión en http://localhost/veterinaria_sistema/login.php.
+9. Después de crear el administrador, elimina crear_admin.php de la carpeta por seguridad.
+
+INTERFACES Y PERMISOS
+ADMINISTRADOR
+- Panel general con contadores.
+- Crear cuentas de empleados, administradores y clientes.
+- Consultar clientes, mascotas y todas las citas.
+- Administrar productos e inventario desde la tienda.
+- Consultar las compras realizadas.
+
+EMPLEADO
+- Panel con citas pendientes y citas del día.
+- Consultar solicitudes de citas.
+- Aceptar o rechazar solicitudes y agregar una respuesta.
+- Consultar los datos de las mascotas.
+
+CLIENTE
+- Crear su cuenta desde el inicio de sesión.
+- Registrar y consultar sus mascotas.
+- Solicitar citas para sus mascotas.
+- Consultar el estado de sus citas y la respuesta del empleado.
+- Consultar la tienda, agregar productos al carrito y revisar sus compras.
+
+FLUJO DE CITAS
+1. El cliente registra una mascota.
+2. El cliente solicita una cita y esta queda como Pendiente.
+3. El empleado revisa la solicitud y la acepta o rechaza; puede escribir un comentario.
+4. El cliente consulta el resultado en Mis citas.
+
+CONFIGURACIÓN
+- Si MySQL tiene otra contraseña, edita conexion.php y cambia $usuario y $contrasena.
+- La configuración predeterminada es servidor localhost, base veterinariadb, usuario root y contraseña vacía.
+- Las cuentas antiguas que tengan rol 'usuario' no se convierten automáticamente. Si sabes que son clientes, puedes ejecutar en phpMyAdmin:
+  UPDATE usuario SET rol='cliente' WHERE rol='usuario';
+- Si ya existía una tabla clientes, la actualización agrega idUsuario sin borrar los datos anteriores. Los clientes antiguos sin vínculo seguirán apareciendo, pero no estarán asociados a una cuenta hasta que se vinculen.
+- La tienda requiere que se ejecuten ambos archivos SQL de actualización, en el orden indicado.
+
+NOTA
+Este proyecto es una base escolar funcional para XAMPP. Antes de publicarlo en internet, agrega protección CSRF, controles adicionales de seguridad, validación de horarios y políticas de respaldo.
+
+
+ADMINISTRAR PRODUCTOS
+- Inicia sesión con una cuenta cuyo rol sea administrador.
+- En el menú lateral abre "Inventario" o desde el panel selecciona "Administrar productos".
+- Completa nombre, precio en pesos, existencias, categoría y descripción.
+- Para la fotografía selecciona un archivo JPG, PNG, WEBP o GIF de máximo 3 MB.
+- Presiona "Agregar producto". El producto aparecerá en el catálogo de la tienda.
+- Para modificarlo usa "Editar"; para quitarlo usa "Eliminar".
+- Si un producto ya se utilizó en una compra, la base de datos puede impedir borrarlo; en ese caso cambia sus existencias a cero.
+- Las imágenes se guardan automáticamente en uploads/productos. No necesitas escribir rutas manualmente.
+- No hace falta importar un SQL adicional para esta mejora: utiliza la tabla productos y las categorías que ya crea actualizar_productos.sql.

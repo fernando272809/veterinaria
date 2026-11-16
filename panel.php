@@ -1,0 +1,1 @@
+<?php require_once 'auth.php'; requiereSesion(); $r=$_SESSION['rol']; ir($r==='administrador'?'admin_panel.php':($r==='empleado'?'empleado_panel.php':'cliente.php'));
